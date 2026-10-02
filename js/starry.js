@@ -20,8 +20,15 @@ const Starry = (function () {
   let mouse = { x: 0, y: 0 };  // 归一化 -0.5 ~ 0.5
   let reduced = false;
 
-  const BLUES = ["#3a6fc8", "#4a82e0", "#6f9fe0", "#8fb3e8", "#2f5cb8", "#a8c6f2", "#5b8bd4"];
+  const BLUES = ["#3a6fc8", "#4a82e0", "#7a5cf0", "#4da6ff", "#6f9fe0", "#b48cff", "#37c8e8"];
   const WARMS = ["#ffd75e", "#ffc93c", "#ffe9a8", "#fff3c4"];
+
+  /* 星辰三色相：金 / 青 / 紫（吞噬星空式的多色璀璨） */
+  const STAR_HUES = [
+    { ring: "rgba(255, 224, 120, 0.6)",  spike: "rgba(255, 250, 235, 0.6)", core: ["255,255,245", "255,230,130", "255,215,94"] },
+    { ring: "rgba(160, 240, 255, 0.55)", spike: "rgba(230, 252, 255, 0.55)", core: ["235,255,255", "170,240,255", "126,232,250"] },
+    { ring: "rgba(200, 160, 255, 0.55)", spike: "rgba(240, 230, 255, 0.55)", core: ["255,245,255", "220,180,255", "180,140,255"] },
+  ];
 
   /* 星辰定义（占画面比例）—— 明亮醒目，致敬梵高笔下的大星 */
   const STAR_DEFS = [
@@ -45,12 +52,12 @@ const Starry = (function () {
     const s = staticLayer.getContext("2d");
     s.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-    /* 夜空渐变（梵高式的浓郁钴蓝，明亮瑰丽） */
+    /* 夜空渐变（深空黑蓝——霓虹光效的舞台） */
     const sky = s.createLinearGradient(0, 0, 0, H);
-    sky.addColorStop(0, "#0d1c56");
-    sky.addColorStop(0.5, "#17338a");
-    sky.addColorStop(0.82, "#1d3f9e");
-    sky.addColorStop(1, "#0f2a66");
+    sky.addColorStop(0, "#070d24");
+    sky.addColorStop(0.45, "#101a4a");
+    sky.addColorStop(0.78, "#1a2a66");
+    sky.addColorStop(1, "#0e1840");
     s.fillStyle = sky;
     s.fillRect(0, 0, W, H);
 
@@ -87,6 +94,23 @@ const Starry = (function () {
       s.fillStyle = g;
       s.beginPath(); s.arc(px, py, r, 0, Math.PI * 2); s.fill();
     }
+
+    /* 霓虹星云团（紫 / 品红 / 电蓝 / 金——致敬科幻宇宙的能量星云） */
+    const NEBULA_DEFS = [
+      { x: 0.20, y: 0.28, r: 0.30, col: "rgba(150, 100, 255, 0.10)" },
+      { x: 0.64, y: 0.52, r: 0.34, col: "rgba(255, 106, 213, 0.06)" },
+      { x: 0.88, y: 0.38, r: 0.26, col: "rgba(77, 166, 255, 0.09)" },
+      { x: 0.42, y: 0.14, r: 0.24, col: "rgba(126, 232, 250, 0.08)" },
+      { x: 0.08, y: 0.60, r: 0.25, col: "rgba(255, 215, 94, 0.05)" },
+    ];
+    NEBULA_DEFS.forEach(function (nb) {
+      const nr = nb.r * Math.min(W, H) * 1.6;
+      const g = s.createRadialGradient(nb.x * W, nb.y * H, 0, nb.x * W, nb.y * H, nr);
+      g.addColorStop(0, nb.col);
+      g.addColorStop(1, "rgba(0, 0, 0, 0)");
+      s.fillStyle = g;
+      s.beginPath(); s.arc(nb.x * W, nb.y * H, nr, 0, Math.PI * 2); s.fill();
+    });
     s.globalCompositeOperation = "source-over";
 
     /* 梵高式笔触纹理 */
@@ -257,9 +281,18 @@ const Starry = (function () {
         }
       }
       ctx.strokeStyle = col;
-      ctx.globalAlpha = Math.max(0, Math.min(0.85, p.life * 0.75));
-      ctx.lineWidth = p.lw;
       ctx.lineCap = "round";
+      /* 能量长尾（渐隐拖尾，科幻光轨感） */
+      const ddx = p.x - p.px, ddy = p.y - p.py;
+      ctx.globalAlpha = Math.max(0, Math.min(0.3, p.life * 0.28));
+      ctx.lineWidth = p.lw * 0.7;
+      ctx.beginPath();
+      ctx.moveTo(p.px - ddx * 1.8, p.py - ddy * 1.8);
+      ctx.lineTo(p.px, p.py);
+      ctx.stroke();
+      /* 主体（高亮笔触） */
+      ctx.globalAlpha = Math.max(0, Math.min(0.9, p.life * 0.8));
+      ctx.lineWidth = p.lw;
       ctx.beginPath();
       ctx.moveTo(p.px, p.py);
       ctx.lineTo(p.x, p.y);
@@ -268,33 +301,34 @@ const Starry = (function () {
     ctx.globalAlpha = 1;
   }
 
-  /* ────────── 星辰闪烁（明亮瑰丽：白热核心 + 同心光环 + 四芒光刺）────────── */
+  /* ────────── 星辰闪烁（金 / 青 / 紫三色璀璨 + 同心光环 + 四芒光刺）────────── */
   function drawStars(t) {
     for (let i = 0; i < stars.length; i++) {
       const st = stars[i];
+      const hue = STAR_HUES[st.hue];
       const tw = 0.66 + 0.34 * Math.sin(t * 0.001 * (0.7 + st.ph) + st.ph);
-      /* 同心光晕环（梵高笔下层层扩散的光波） */
-      ctx.strokeStyle = "rgba(255, 224, 120, 0.6)";
+      /* 同心光晕环（层层扩散的光波） */
+      ctx.strokeStyle = hue.ring;
       ctx.globalAlpha = 0.85 * tw;
       ctx.lineWidth = 1.8;
       ctx.beginPath(); ctx.arc(st.x, st.y, st.r * 2.9, 0, Math.PI * 2); ctx.stroke();
       ctx.globalAlpha = 0.5 * tw;
       ctx.lineWidth = 1.2;
       ctx.beginPath(); ctx.arc(st.x, st.y, st.r * 4.8, 0, Math.PI * 2); ctx.stroke();
-      /* 四芒星光刺（大星专属，致敬梵高画中放射的星光） */
+      /* 四芒星光刺（大星专属，放射的星光） */
       if (st.r > Math.min(W, H) * 0.017) {
         const L = st.r * 7;
-        ctx.strokeStyle = "rgba(255, 250, 235, 0.6)";
+        ctx.strokeStyle = hue.spike;
         ctx.globalAlpha = 0.3 + 0.35 * tw;
         ctx.lineWidth = 1.6;
         ctx.beginPath(); ctx.moveTo(st.x - L, st.y); ctx.lineTo(st.x + L, st.y); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(st.x, st.y - L); ctx.lineTo(st.x, st.y + L); ctx.stroke();
       }
-      /* 白热核心 → 金黄 → 透明 */
+      /* 白热核心 → 色相 → 透明 */
       const g = ctx.createRadialGradient(st.x, st.y, 0, st.x, st.y, st.r * 3.2);
-      g.addColorStop(0, "rgba(255, 255, 245, " + tw.toFixed(3) + ")");
-      g.addColorStop(0.3, "rgba(255, 230, 130, " + (0.9 * tw).toFixed(3) + ")");
-      g.addColorStop(1, "rgba(255, 215, 94, 0)");
+      g.addColorStop(0, "rgba(" + hue.core[0] + ", " + tw.toFixed(3) + ")");
+      g.addColorStop(0.3, "rgba(" + hue.core[1] + ", " + (0.9 * tw).toFixed(3) + ")");
+      g.addColorStop(1, "rgba(" + hue.core[2] + ", 0)");
       ctx.fillStyle = g;
       ctx.globalAlpha = 1;
       ctx.beginPath(); ctx.arc(st.x, st.y, st.r * 3.2, 0, Math.PI * 2); ctx.fill();
@@ -376,8 +410,8 @@ const Starry = (function () {
   }
 
   function layout() {
-    stars = STAR_DEFS.map(function (d) {
-      return { x: d[0] * W, y: d[1] * H, r: d[2] * Math.min(W, H), ph: Math.random() * 6.28 };
+    stars = STAR_DEFS.map(function (d, i) {
+      return { x: d[0] * W, y: d[1] * H, r: d[2] * Math.min(W, H), ph: Math.random() * 6.28, hue: i % 3 };
     });
     vortices = VORTEX_DEFS.map(function (d) {
       return { x: d[0] * W, y: d[1] * H, s: d[2], spin: d[3] };
