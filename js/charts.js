@@ -11,27 +11,33 @@ const Charts = (function () {
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-  /* 注册可重建的图表（resize 时整体重绘） */
+  /* 注册可重建的图表（resize 时整体重绘）；单图报错不拖垮全站 */
   function build(id, fn) {
     if (built[id]) return;
     built[id] = true;
     registry.push({ id: id, fn: fn });
-    fn();
+    try { fn(); } catch (err) { console.warn("[智涌星河] 图表 " + id + " 构建失败：", err); }
   }
-  function rebuildAll() { registry.forEach(function (r) { r.fn(); }); }
+  function rebuildAll() {
+    registry.forEach(function (r) {
+      try { r.fn(); } catch (err) { console.warn("[智涌星河] 图表 " + r.id + " 重绘失败：", err); }
+    });
+  }
 
   /* ────────── 工具 ────────── */
   const tip = document.getElementById("tooltip");
   function tipShow(ev, title, note) {
+    if (!tip) return;
     tip.hidden = false;
     tip.innerHTML = '<div class="tt-title">' + title + "</div>" + (note ? '<div class="tt-note">' + note + "</div>" : "");
     tipMove(ev);
   }
   function tipMove(ev) {
+    if (!tip) return;
     tip.style.left = (ev.clientX + 16) + "px";
     tip.style.top = (ev.clientY + 16) + "px";
   }
-  function tipHide() { tip.hidden = true; }
+  function tipHide() { if (tip) tip.hidden = true; }
 
   function countUp(el, target, opt) {
     opt = opt || {};
@@ -317,7 +323,7 @@ const Charts = (function () {
     el.innerHTML = "";
     el.innerHTML =
       '<div class="duel-top">' +
-      '  <div class="duel-orb cn">' +
+      '  <div class="duel-orb cn" id="orb-cn">' +
       '    <div class="orb-ball"></div>' +
       '    <div class="orb-title">中国</div>' +
       '    <div class="orb-sub">东方辰星</div>' +
@@ -328,7 +334,7 @@ const Charts = (function () {
       '    <div class="duel-beam"></div>' +
       '    <div class="duel-ratio" id="duel-ratio">—</div>' +
       "  </div>" +
-      '  <div class="duel-orb us">' +
+      '  <div class="duel-orb us" id="orb-us">' +
       '    <div class="orb-ball"></div>' +
       '    <div class="orb-title">美国</div>' +
       '    <div class="orb-sub">西方辉星</div>' +

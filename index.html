@@ -6,6 +6,13 @@
   <title>智涌星河 · 人工智能与新质生产力 —— 可视化叙事</title>
   <meta name="description" content="以梵高《星月夜》为灵感的滚动式数据可视化网站，展现人工智能作为新质生产力的作用与意义。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+  <!-- 渐进增强：无 JS 或 JS 报错时，内容一律可见（.js 启用滚动显现动画，.js-sos 为报错兜底） -->
+  <script>
+    document.documentElement.classList.add("js");
+    function sos() { document.documentElement.classList.add("js-sos"); }
+    window.addEventListener("error", sos);
+    window.addEventListener("unhandledrejection", sos);
+  </script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
