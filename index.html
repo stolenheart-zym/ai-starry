@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>智涌星河 · 人工智能与新质生产力 —— 可视化叙事</title>
+  <meta name="description" content="以梵高《星月夜》为灵感的滚动式数据可视化网站，展现人工智能作为新质生产力的作用与意义。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- 梵高《星月夜》动态背景 -->
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div id="vignette" aria-hidden="true"></div>
+
+  <header id="site-head">
+    <div class="logo">✦ 智涌星河</div>
+    <div class="logo-sub">人工智能 · 新质生产力</div>
+  </header>
+
+  <!-- 顶部彗星进度条 -->
+  <div id="comet-track" aria-hidden="true"><div id="comet"></div></div>
+
+  <!-- 右侧星点导航（由 main.js 生成） -->
+  <nav id="star-nav" aria-label="章节导航"></nav>
+
+  <!-- 左下章节指示 -->
+  <div id="chapter-tag" aria-hidden="true"><span class="ch-no">序</span><span class="ch-name">星夜启程</span></div>
+
+  <main id="story">
+
+    <!-- ═══════════ 序 · 星夜 ═══════════ -->
+    <section class="chapter hero" id="s0">
+      <div class="hero-inner">
+        <p class="hero-kicker rv">可视化叙事 · 星夜漫游</p>
+        <h1 class="hero-title rv" id="hero-title">智涌<span class="em">星河</span></h1>
+        <p class="hero-sub rv">人工智能作为<strong>新质生产力</strong>的作用与意义</p>
+        <p class="hero-note rv">梵高把星光画成流动的河。<br />今夜，我们把数据画成星河 —— 每一颗星，都是一章关于智能时代的故事。</p>
+      </div>
+      <div class="scroll-hint rv">
+        <span class="chev"></span>
+        <span>滚动启程 · 驶入星河</span>
+      </div>
+    </section>
+
+    <!-- ═══════════ 壹 · 启明 ═══════════ -->
+    <section class="chapter" id="s1">
+      <div class="ch-head rv">
+        <span class="ch-no">壹</span>
+        <div class="ch-titles">
+          <h2>启明 · 何为新质生产力</h2>
+          <p class="ch-lead">从蒸汽到电力，从信息到智能 —— 每一次技术跃迁，都会重塑生产力的形态。2023 年 9 月，「新质生产力」首次提出；2024 年，「人工智能＋」写入政府工作报告。这一次，变革的星辰已升上地平线。</p>
+        </div>
+      </div>
+
+      <div class="s1-grid">
+        <div class="glass rv def-card">
+          <h3>什么是新质生产力？</h3>
+          <p class="def">新质生产力是创新起主导作用，摆脱传统经济增长方式、生产力发展路径，具有<strong>高科技、高效能、高质量</strong>特征，符合新发展理念的先进生产力质态。</p>
+          <p class="dim">它由<em>技术革命性突破</em>、<em>生产要素创新性配置</em>、<em>产业深度转型升级</em>而催生，以<strong>全要素生产率大幅提升</strong>为核心标志。</p>
+          <p class="cite">—— 2024 年政府工作报告 · 中央经济工作会议</p>
+        </div>
+
+        <div class="s1-orbit rv" aria-hidden="true">
+          <div class="orbit-wrap">
+            <div class="ring r1"><span class="orb o1">技术革命性突破</span></div>
+            <div class="ring r2"><span class="orb o2">要素创新性配置</span></div>
+            <div class="ring r3"><span class="orb o3">产业深度转型升级</span></div>
+            <div class="core"><span>新质<br />生产力</span></div>
+          </div>
+        </div>
+
+        <div class="s1-cards">
+          <div class="glass rv t-card d1">
+            <h4>高科技</h4>
+            <p>人工智能、大模型、先进算力驱动的技术跃迁</p>
+          </div>
+          <div class="glass rv t-card d2">
+            <h4>高效能</h4>
+            <p>全要素生产率提升，同样的投入创造更多产出</p>
+          </div>
+          <div class="glass rv t-card d3">
+            <h4>高质量</h4>
+            <p>绿色、智能、可持续的新发展方式</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="s1-bridge rv">而在这场变革中，<strong>人工智能正是最亮的那颗启明星</strong> —— 它既是技术革命的策源地，又是全要素生产率跃升的引擎。下一章，让我们看它掀起的浪潮有多大。</p>
+    </section>
+
+    <!-- ═══════════ 贰 · 星河 ═══════════ -->
+    <section class="chapter" id="s2">
+      <div class="ch-head rv">
+        <span class="ch-no">贰</span>
+        <div class="ch-titles">
+          <h2>星河奔涌 · AI 经济规模的指数浪潮</h2>
+          <p class="ch-lead">从 1966 亿美元到 18118 亿美元，全球人工智能市场正以每年 36% 以上的速度扩张；在中国，AI 核心产业规模 2024 年突破 9000 亿元，2025 年有望站上万亿台阶。数据如星河奔涌，以指数之势重塑经济版图。</p>
+        </div>
+      </div>
+
+      <div class="glass rv chart-panel wide">
+        <h3>全球人工智能市场规模（2019 — 2030）</h3>
+        <div id="river-global" class="river"></div>
+        <p class="chart-note">单位：十亿美元 · 2025 年起为预测值 · 来源：Grand View Research</p>
+      </div>
+
+      <div class="s2-row">
+        <div class="glass rv chart-panel">
+          <h3>中国 AI 核心产业规模（2020 — 2025）</h3>
+          <div id="river-china" class="river"></div>
+          <p class="chart-note">单位：亿元 · 2025 年为信通院测算 · 来源：工信部、中国信通院</p>
+        </div>
+        <div class="s2-stats">
+          <div class="glass rv stat" data-delay="0">
+            <b data-count="1.81" data-dec="2" data-prefix="$" data-suffix=" 万亿">0</b>
+            <span>2030 年全球 AI 市场规模（预测）</span>
+          </div>
+          <div class="glass rv stat" data-delay="1">
+            <b data-count="12000" data-suffix=" 亿元">0</b>
+            <span>2025 年中国 AI 核心产业（信通院测算）</span>
+          </div>
+          <div class="glass rv stat" data-delay="2">
+            <b data-count="36.6" data-dec="1" data-suffix="%">0</b>
+            <span>全球市场年复合增速（2024 — 2030）</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 叁 · 星宿 ═══════════ -->
+    <section class="chapter" id="s3">
+      <div class="ch-head rv">
+        <span class="ch-no">叁</span>
+        <div class="ch-titles">
+          <h2>星罗棋布 · AI 赋能千行百业</h2>
+          <p class="ch-lead">人工智能不是孤悬天际的一颗明星，而是点亮千行百业的星宿群。点击任意一颗星辰，看它如何照亮一个行业。</p>
+        </div>
+      </div>
+
+      <div class="s3-wrap">
+        <div id="constellation" class="glass rv"></div>
+        <aside id="industry-panel" class="glass rv" aria-live="polite">
+          <h3 id="ind-name">智能制造</h3>
+          <p id="ind-desc"></p>
+          <ul id="ind-stats"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ═══════════ 肆 · 双子 ═══════════ -->
+    <section class="chapter" id="s4">
+      <div class="ch-head rv">
+        <span class="ch-no">肆</span>
+        <div class="ch-titles">
+          <h2>双子争辉 · 中国与全球的 AI 版图</h2>
+          <p class="ch-lead">在全球 AI 版图上，中国与美国是最亮的两颗双子星。切换下方指标，从专利、投资、机器人到灯塔工厂，观察「东方辰星」与「西方辉星」的亮度对比。</p>
+        </div>
+      </div>
+      <div id="duel" class="glass rv"></div>
+    </section>
+
+    <!-- ═══════════ 伍 · 星爆 ═══════════ -->
+    <section class="chapter" id="s5">
+      <div class="ch-head rv">
+        <span class="ch-no">伍</span>
+        <div class="ch-titles">
+          <h2>星爆时刻 · 算力：新质生产力的引擎</h2>
+          <p class="ch-lead">算力，是智能时代的「电力」。2012 年以来，AI 训练算力每 3.4 个月翻一番，8 年间增长约 30 万倍 —— 一场持续至今的超新星爆发。中国以全球第二的算力总规模，深度参与这场聚变。</p>
+        </div>
+      </div>
+
+      <div class="s5-grid">
+        <div id="nova" class="rv">
+          <canvas id="nova-canvas" aria-hidden="true"></canvas>
+          <p class="nova-caption">一场持续的超新星爆发 · 每一次进入本页都会重新点燃</p>
+        </div>
+        <div class="glass rv chart-panel">
+          <h3>大模型训练算力增长（FLOPs · 对数坐标）</h3>
+          <div id="compute-curve" class="river"></div>
+          <p class="chart-note">来源：OpenAI《AI and Compute》· Epoch AI</p>
+        </div>
+      </div>
+
+      <div class="glass rv chart-panel">
+        <h3>中国智能算力规模（EFLOPS）</h3>
+        <div id="smart-compute" class="river"></div>
+        <p class="chart-note">2025 年为预测值 · 来源：IDC × 浪潮信息《中国人工智能计算力发展评估报告》</p>
+      </div>
+
+      <div class="chip-row">
+        <div class="glass rv chip" data-delay="0"><b>280 EFLOPS</b><span>算力总规模 · 全球第二</span></div>
+        <div class="glass rv chip" data-delay="1"><b>32%</b><span>智能算力占比</span></div>
+        <div class="glass rv chip" data-delay="2"><b>346 款</b><span>已备案生成式 AI 大模型</span></div>
+        <div class="glass rv chip" data-delay="3"><b>4700+ 家</b><span>全国人工智能企业</span></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 陆 · 星尘 ═══════════ -->
+    <section class="chapter" id="s6">
+      <div class="ch-head rv">
+        <span class="ch-no">陆</span>
+        <div class="ch-titles">
+          <h2>星尘引擎 · 生产力提升的实证</h2>
+          <p class="ch-lead">新质生产力不是概念，而是一串串正在发生的数字。当 AI 落入产业土壤，效率的提升如星尘般洒满每一个角落。</p>
+        </div>
+      </div>
+
+      <div class="s6-hero rv">
+        <b class="trillion"><span data-count="13" data-prefix="$" data-suffix=" 万亿">0</span></b>
+        <p>麦肯锡研究：到 2030 年，AI 有望为全球经济带来约 <strong>13 万亿美元</strong>增量，相当于每年拉动全球 GDP 增长约 1.2%。</p>
+      </div>
+
+      <div id="meters" class="meters-grid rv"></div>
+
+      <div class="glass rv jobs-panel">
+        <h3>技术改变岗位，更创造岗位</h3>
+        <p>世界经济论坛《未来就业报告 2025》：到 2030 年，AI 与自动化将<strong>创造约 1.7 亿个新岗位</strong>，取代约 9200 万个，<strong>净增约 7800 万个</strong>。</p>
+        <div id="jobs-bars"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 柒 · 引力 ═══════════ -->
+    <section class="chapter" id="s7">
+      <div class="ch-head rv">
+        <span class="ch-no">柒</span>
+        <div class="ch-titles">
+          <h2>引力之约 · 聚变与未来</h2>
+          <p class="ch-lead">生产要素如星尘，永远向创新最亮处聚集。移动鼠标，感受 AI 这颗恒星的「引力」。</p>
+        </div>
+      </div>
+
+      <div id="gravity" class="glass rv">
+        <canvas id="gravity-canvas" aria-hidden="true"></canvas>
+        <div class="g-legend">
+          <span class="lg lg-talent">人才</span>
+          <span class="lg lg-capital">资本</span>
+          <span class="lg lg-tech">技术</span>
+          <span class="lg lg-data">数据</span>
+        </div>
+      </div>
+
+      <div class="tl-title rv"><h3>星辰轨迹 · 中国 AI 与新质生产力时间线</h3></div>
+      <div id="timeline" class="rv"></div>
+
+      <div class="s7-cards">
+        <div class="glass rv card-bad">
+          <h3>直面挑战</h3>
+          <ul>
+            <li>全球约 <b>3 亿</b>个岗位暴露于自动化（高盛）</li>
+            <li>数据安全与算法伦理需要制度护航</li>
+            <li>算力能耗呼唤绿色低碳的智能基建</li>
+          </ul>
+        </div>
+        <div class="glass rv card-good">
+          <h3>拥抱未来</h3>
+          <ul>
+            <li>人机协同成为主流工作方式</li>
+            <li>具身智能走进工厂、农田与家庭</li>
+            <li>AI for Science 加速科学的星辰大海</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ending rv">
+        <h2>人类的想象力，是宇宙中最亮的星。</h2>
+        <p>当技术的星河与产业的土壤相遇，新质生产力便如恒星般点燃 —— 照亮现在，也照亮未来。</p>
+        <p class="ending-sub">—— 致敬梵高《星月夜》 · 谨以此站献给智能时代</p>
+      </div>
+
+      <footer class="sources rv">
+        <h4>数据来源</h4>
+        <ul>
+          <li>中国信通院《人工智能产业发展研究报告（2025）》· 工信部公开数据</li>
+          <li>Grand View Research：全球人工智能市场规模与预测</li>
+          <li>世界知识产权组织（WIPO）《生成式人工智能专利态势报告》</li>
+          <li>斯坦福大学《AI Index 2025》</li>
+          <li>国际机器人联合会（IFR）《世界机器人报告 2024》</li>
+          <li>世界经济论坛《全球灯塔网络 2025》与《未来就业报告 2025》</li>
+          <li>麦肯锡全球研究院《人工智能的未来之路》</li>
+          <li>OpenAI《AI and Compute》· Epoch AI</li>
+          <li>IDC × 浪潮信息《中国人工智能计算力发展评估报告》</li>
+          <li>高盛《生成式 AI 对经济增长的潜在影响》</li>
+        </ul>
+        <p class="foot-note">本网站为「可视化导论」课程作业 · 数据整理自公开资料，仅供学习交流</p>
+      </footer>
+    </section>
+  </main>
+
+  <div id="tooltip" hidden></div>
+
+  <script src="lib/d3.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/starry.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
