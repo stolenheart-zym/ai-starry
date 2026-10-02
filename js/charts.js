@@ -270,15 +270,17 @@ const Charts = (function () {
       inner.append("text").attr("dy", "0.36em").attr("text-anchor", "middle")
         .attr("fill", "#1a1f3d").attr("font-size", 19).attr("font-weight", 700)
         .attr("font-family", "KaiTi, STKaiti, serif").text(d.char);
-      /* 名称标签（环外） */
-      const dx = pos[i].x - cx, dy = pos[i].y - cy;
-      const dist = Math.hypot(dx, dy) || 1;
-      svg.append("text")
-        .attr("x", pos[i].x + dx / dist * 40).attr("y", pos[i].y + dy / dist * 40)
-        .attr("dy", "0.34em")
-        .attr("text-anchor", Math.abs(dx) < 20 ? "middle" : (dx > 0 ? "start" : "end"))
-        .attr("fill", "rgba(232,236,255,.6)").attr("font-size", 12.5)
-        .attr("font-family", "KaiTi, STKaiti, serif").text(d.name);
+      /* 名称标签（环外，小屏隐藏防止裁剪） */
+      if (w >= 560) {
+        const dx = pos[i].x - cx, dy = pos[i].y - cy;
+        const dist = Math.hypot(dx, dy) || 1;
+        svg.append("text")
+          .attr("x", pos[i].x + dx / dist * 40).attr("y", pos[i].y + dy / dist * 40)
+          .attr("dy", "0.34em")
+          .attr("text-anchor", Math.abs(dx) < 20 ? "middle" : (dx > 0 ? "start" : "end"))
+          .attr("fill", "rgba(232,236,255,.6)").attr("font-size", 12.5)
+          .attr("font-family", "KaiTi, STKaiti, serif").text(d.name);
+      }
 
       g.on("mouseenter", function (ev) {
         inner.transition().duration(240).attr("transform", "scale(1.14)");
